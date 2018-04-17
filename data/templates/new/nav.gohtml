@@ -1,0 +1,23 @@
+{{define "nav"}}
+    {{ if .Game }}
+        {{ if .Authenticated}}
+            {{ if .Admin }}
+                {{template "gameNavAdmin" .}}
+            {{ else }}
+                {{template "gameNavIn" .}}
+            {{ end }}
+        {{ else }}
+            {{template "gameNavOut" .}}
+        {{ end }}
+    {{ else }}
+        {{ if .Authenticated}}
+            {{ if .Admin }}
+                {{template "navAdmin" .}}
+            {{ else }}
+                {{template "navIn" .}}
+            {{ end }}
+        {{ else }}
+            {{template "navOut" .}}
+        {{ end }}
+    {{ end}}
+{{ end }}

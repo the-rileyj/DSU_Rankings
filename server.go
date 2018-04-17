@@ -44,9 +44,10 @@ type confirmData struct {
 }
 
 type templateData struct {
-	Admin, Authenticated, Dual                                   bool
-	Name, Theme, ThemeAlt, ThemeHighlighter, ThemeHighlighterAlt string
-	Data                                                         interface{}
+	Admin, Authenticated, Dual            bool
+	Game, GameTitle, Theme, ThemeAlt      string
+	ThemeHighlighter, ThemeHighlighterAlt string
+	Data                                  interface{}
 }
 
 type locationalError struct {
@@ -104,7 +105,7 @@ func main() {
 	go errorDrain()
 
 	r := gin.Default()
-	tpl = template.Must(template.New("").ParseGlob("data/templates/*.gohtml"))
+	tpl = template.Must(template.New("").ParseGlob("data/templates/new/*.gohtml"))
 
 	//private, _ := os.LookupEnv("PRIVATE")
 	//public, _ := os.LookupEnv("PUBLIC")
@@ -121,7 +122,9 @@ func main() {
 	})
 
 	r.GET("/", func(g *gin.Context) {
-		td := templateData{Authenticated: isActiveSession(g.Request)}
+		td := defaultTemplateData()
+		td.Authenticated = isActiveSession(g.Request)
+		go errorLogger(g.Request.URL.String(), "1", tpl.ExecuteTemplate(g.Writer, "index.gohtml", *td))
 
 		// players := users{}
 		// err := queryPlayersByScore(&players)
@@ -217,6 +220,12 @@ func dbConfig() map[string]string {
 		conf[config] = con
 	}
 	return conf
+}
+
+func defaultTemplateData() *templateData {
+	td := &templateData{}
+	td.Theme, td.ThemeAlt, td.ThemeHighlighter, td.ThemeHighlighterAlt = "0,84,164", "252,225,2", "255,255,255", "48,48,48"
+	return td
 }
 
 func errorBasicLogger(location, sublocation string, err error) {
