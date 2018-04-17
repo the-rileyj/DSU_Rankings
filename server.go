@@ -118,13 +118,18 @@ func main() {
 	/* ROUTE HANDLERS */
 
 	r.NoRoute(func(c *gin.Context) {
-		tpl.ExecuteTemplate(c.Writer, "error.gohtml", "404 Page not found :(")
+		td := defaultTemplateData()
+		td.Data = "404 Page not found :("
+		go errorLogger(c.Request.URL.String(), "1", tpl.ExecuteTemplate(c.Writer, "error.gohtml", *td))
 	})
 
-	r.GET("/", func(g *gin.Context) {
+	r.GET("/", func(c *gin.Context) {
 		td := defaultTemplateData()
-		td.Authenticated = isActiveSession(g.Request)
-		go errorLogger(g.Request.URL.String(), "1", tpl.ExecuteTemplate(g.Writer, "index.gohtml", *td))
+		type tempStruct struct{ Game, GameTitle string }
+		td.Data = []tempStruct{{"Test2", "T2est"}, {"Tes", "T3est"}, {"Tes", "T333est"}, {"Tes", "T322est"}, {"Tes", "T44223est"}}
+		td.Data = append(td.Data.([]tempStruct), tempStruct{Game: "Test", GameTitle: "test test"})
+		td.Authenticated = isActiveSession(c.Request)
+		go errorLogger(c.Request.URL.String(), "1", tpl.ExecuteTemplate(c.Writer, "index.gohtml", *td))
 
 		// players := users{}
 		// err := queryPlayersByScore(&players)
@@ -296,6 +301,10 @@ func isActiveSession(r *http.Request) bool {
 		}
 	}
 	return false
+}
+
+func setSessionData() {
+
 }
 
 func queryPlayer(id uint64) (user, error) {

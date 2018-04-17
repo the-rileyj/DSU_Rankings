@@ -3,16 +3,16 @@
     <body>
         {{template "nav" .}}
         <div class="container-fluid content-container theme-bg-alt pa-2 mx-1 theme-border-alt">
-            <h1>GAMES</h1>
-            <ol class="list-group">
-                {{range .Data.Games}}
-                    <a href="/game/{{.}}">
+            <h1 class="theme-text-highlighter" >GAMES</h1>
+            <ul class="list-group">
+                {{range .Data}}
+                    <a href="/game/{{.Game}}">
                         <li class="elevation-4 list-group-item justify-content-between theme-bg mb-1 pa-2 mx-5 theme-border-highlighter theme-text-highlighter" style="display: list-item">
-                            <strong class="theme-text">{{.}}</strong>
+                            <strong class="theme-text">{{.GameTitle}}</strong>
                         </li>
                     </a>
                 {{ end }}
-            </ol>
+            </ul>
             {{template "js"}}
         </div>
     </body>

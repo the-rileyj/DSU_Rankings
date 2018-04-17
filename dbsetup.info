@@ -1,4 +1,4 @@
-  ==============
+==============
  TABLE CREATION
 ==============
 
@@ -56,7 +56,7 @@ GAMES.dual - Indicating that challenges will handle either single player vs sing
 RANKINGS.admins & GAMES.admins - a comma seperated list of uid's representing the administrators for the admin site or game
 
 
-  ==============
+==============
  DUMMY DATA
 ==============
 
