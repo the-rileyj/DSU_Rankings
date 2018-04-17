@@ -1,0 +1,12 @@
+{{define "indexContent"}}
+    <ol class="list-group">
+        {{range .Users}}
+            <a href="/profile/{{.ID}}">
+                <li class="elevation-4 list-group-item justify-content-between theme-bg mb-1 pa-2 mx-5 theme-border-highlighter theme-text-highlighter" style="display: list-item">
+                    <span class="elevation-2 badge badge-default badge-pill theme-bg-alt theme-text-highlighter theme-border-highlighter">{{.Score}}</span>
+                    <strong class="theme-text">{{.Fname}} {{.Lname}}</strong>
+                </li>
+            </a>
+        {{ end }}
+    </ol>
+{{end}}

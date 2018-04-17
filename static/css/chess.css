@@ -1,0 +1,133 @@
+/* NAVBAR STYLING */
+
+nav {
+    border-bottom: solid rgb(252,225,2);
+    color: rgb(252,225,2)!important;
+    background-color: rgb(0,84,164)!important;
+    line-height: 2rem;
+}
+
+button.navbar-toggler:focus {
+    outline: none;
+} 
+
+.nav-item.nav-link, a.navbar-brand {
+    color: rgb(252,225,2)!important;
+}
+
+.navbar-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(252,225,2,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E")!important;
+}
+  
+.navbar-toggler {
+    border-color: rgb(252,225,2)!important;
+}
+
+/*=======================
+    OVERARCHING STYLES 
+=======================*/ 
+
+body {
+    background-color: rgb(48,48,48)!important;
+}
+
+a:focus {
+    outline: none;
+} 
+
+/* BUTTON */
+
+.theme-button {
+    border: solid rgb(252,225,2);
+    color: rgb(252,225,2)!important;
+    background-color: rgb(0,84,164)!important;
+    cursor: pointer;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+      0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+}
+
+/* CONTENT CONTAINER */
+
+.content-container {
+    border-radius: .25rem;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+      0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* INPUTS */
+
+.theme-input {
+    border: solid rgb(252,225,2);
+    color: rgb(252,225,2)!important;
+    background-color: rgb(0,84,164)!important;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.theme-input::-webkit-input-placeholder {
+    color: rgb(252,225,2)!important;
+}
+
+.theme-input:-moz-placeholder {
+    color: rgb(252,225,2)!important;
+}
+
+input:focus {
+    border: dashed rgb(252,225,2)!important;
+}
+
+
+/*=======================
+    VARIOUS COLOR CLASSES 
+=======================*/ 
+
+.theme-text {
+    color: rgb(0,84,164)!important;
+}
+
+.theme-text-alt {
+    color: rgb(252,225,2)!important;
+}
+
+.theme-text-highlighter {
+    color: rgb(255,255,255)!important;
+}
+
+.theme-text-highlighter-alt {
+    color: rgb(48,48,48)!important;
+}
+
+.theme-bg {
+    background-color: rgb(252,225,2)!important;
+}
+
+.theme-bg-alt {
+    background-color: rgb(0,84,164)!important;
+}
+
+.theme-bg-highlighter {
+    background-color: rgb(48,48,48)!important;
+}
+
+.theme-bg-highlighter-alt {
+    background-color: rgb(255,255,255)!important;
+}
+
+.theme-border {
+    border: solid rgb(0,84,164)!important;
+}
+
+.theme-border-alt {
+    border: solid rgb(252,225,2)!important;
+}
+
+.theme-border-highlighter {
+    border: solid rgb(48,48,48)!important;
+}
+
+.theme-border-highlighter-alt {
+    border: solid rgb(255,255,255)!important;
+}

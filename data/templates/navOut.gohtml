@@ -1,0 +1,16 @@
+{{define "navOut"}}
+    <nav class="navbar elevation-8 mb-4">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">DSU Chess</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <form class="form-inline" action="/login" method="POST">
+                <input class="form-control mr-2 theme-input" name="email" type="email" placeholder="Email">
+                <input class="form-control mr-2 theme-input" name="password" type="password" placeholder="Password">
+                <button class="btn my-2 theme-button" type="submit">Login</button>
+                <a class="my-2 ml-2 theme-text-highlighter" href="/register">Register</a>
+            </form>
+        </div>
+    </nav>
+{{end}}

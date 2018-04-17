@@ -1,0 +1,6 @@
+*.sh
+*.ps1
+*.txt
+*.exe*
+config/
+.vscode/

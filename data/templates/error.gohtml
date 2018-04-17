@@ -1,0 +1,16 @@
+<html>
+    {{template "head"}}
+    <body>
+        <div class="container-fluid elevation-8 content-container theme-bg-alt pa-1 mx-1 theme-border-alt theme-text-highlighter">
+            <div class="row">
+                <div class="col">
+                    {{.}}
+                </div>
+                <div class="col">
+                    <a class="theme-text-alt" href="/">Navigate back to charted territory</a>
+                </div>
+            </div>
+            {{template "js"}}
+        </div>
+    </body>
+</html>

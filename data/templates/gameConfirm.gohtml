@@ -1,0 +1,100 @@
+<html>
+    {{template "head"}}
+    <body>
+        {{template "navIn"}}
+        <div class="container-fluid content-container theme-bg-alt pa-2 mx-1 theme-border-alt theme-text-highlighter">
+            {{if .Error}}
+                <div class="text-center">
+                    <h1 style="color: red">{{.}}</h1>
+                </div>
+            {{end}}
+            <form action="/confirm" method="POST">
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        Opponent
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="theme-input" name="pid" id="pid">
+                            <option value="0">
+                                Select a user
+                            </option>
+                            {{range .Users}}
+                                <option value="{{.ID}}">
+                                    {{.Fname}} {{.Lname}} - {{.ID}}
+                                </option>
+                            {{end}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        Winner
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="theme-input" name="wpid" id="wpid">
+                            <option value="0">
+                                Select a user
+                            </option>
+                            <option value="{{.Initiator.ID}}">
+                                {{.Initiator.Fname}} {{.Initiator.Lname}} - {{.Initiator.ID}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputDate" class="col-sm-2 col-form-label">
+                        Date of Game
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control theme-input" id="inputDate" name="date" placeholder="Date">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <button type="submit" class="btn theme-button">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {{ if not .Error }}
+                {{range .Achallenges}}
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <a href="/profile/{{.Initiator}}">{{.Opponent.Fname}} {{.Opponent.Lname}}</a> {{.WinningString}} {{.Date}}
+                        </div>
+                        <div class="col-sm-2">
+                            <form action="/accept/{{.ID}}" method="POST">
+                                <button type="submit" class="btn theme-button">
+                                    Accept
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-sm-2">
+                            <form action="/deny/{{.ID}}" method="POST">
+                                <button type="submit" class="btn theme-button">
+                                    Deny
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {{end}}
+                {{range .Ichallenges}}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <a href="/profile/{{.Acceptor}}">{{.Opponent.Fname}} {{.Opponent.Lname}}</a> {{.WinningString}} {{.Date}}
+                        </div>
+                        <div class="col-sm-2">
+                            <form action="/cancel/{{.ID}}" method="POST">
+                                <button type="submit" class="btn theme-button">
+                                    Cancel
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {{end}}
+            {{end}}
+            {{template "js"}}
+        </div>
+    </body>
+</html>
