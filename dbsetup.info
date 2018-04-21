@@ -1,8 +1,35 @@
-==============
+===============
  TABLE CREATION
-==============
+===============
 
-CREATE TABLE PLAYER_CHALLENGES (
+CREATE TABLE GAMES (
+    admins text,
+    duel boolean,
+    name text UNIQUE,
+    style text,
+    title text,
+    gid SERIAL PRIMARY KEY
+);
+
+CREATE TABLE GAME_SCORES (
+    gid int FOREIGN KEY,
+    uid int FOREIGN KEY,
+    score int
+);
+
+CREATE TABLE RANKINGS (
+    admins text
+);
+
+CREATE TABLE USERS (
+    email varchar(75),
+    fname varchar(35),
+    lname varchar(35),
+    password varchar(100),
+    pid SERIAL PRIMARY KEY
+);
+
+CREATE TABLE USER_CHALLENGES (
     id varchar(50), 
     date varchar(15), 
     acceptor int, 
@@ -10,8 +37,8 @@ CREATE TABLE PLAYER_CHALLENGES (
     winner int
 );
 
-CREATE TABLE PLAYER_CONFIRMATION (
-    uuid varchar(50), 
+CREATE TABLE USER_CONFIRMATION (
+    uuid varchar(50) PRIMARY KEY, 
     email varchar(75), 
     fname varchar(35), 
     lname varchar(35), 
@@ -23,53 +50,52 @@ CREATE TABLE USER_SESSIONS (
     uuid varchar(50)
 );
 
-CREATE TABLE USERS (
-    email varchar(75),
-    fname varchar(35),
-    lname varchar(35),
-    password varchar(100),
-    pid SERIAL PRIMARY KEY
-);
-
-CREATE TABLE GAME_SCORES (
-    gid int,
-    uid int,
-    score int
-);
-
-CREATE TABLE GAMES (
-    admins text,
-    dual boolean
-    gid int,
-    name text,
-    style text,
-);
-
-CREATE TABLE RANKINGS (
-    admins text,
-    games text
-);
-
 NOTES:
 ------
-GAMES.dual - Indicating that challenges will handle either single player vs single player or single to many vs single to manyW
-RANKINGS.admins & GAMES.admins - a comma seperated list of uid's representing the administrators for the admin site or game
+GAMES.duel - Indicating that challenges will handle either single player vs single player or single to many vs single to manyW
+RANKINGS.admins & GAMES.admins - a pipe seperated list of uid's representing the administrators for the admin site or game; 
+                               - pipes at start and beginning are required for searching for an admin in queries
 
 
-==============
+===========
  DUMMY DATA
-==============
-
-PLAYER_CHALLENGES
-
-PLAYER_CONFIRMATION
-
-USER_SESSIONS
-
-USERS
+===========
 
 GAMES
+-----
+INSERT INTO GAMES VALUES(
+    '|5|2|3|',
+    't',
+    'chess',
+    '0,84,164|252,225,2|255,255,255|48,48,48',
+    'Chess'
+);
+
+INSERT INTO GAMES VALUES(
+    '|1|4|',
+    'f',
+    'rocket_league',
+    '0,84,164|252,225,2|255,255,255|48,48,48',
+    'Rocket League'
+);
 
 GAME_SCORES
+-----------
+
 
 RANKINGS
+--------
+
+USERS   
+-----
+INSERT INTO USERS
+
+
+USER_CHALLENGES
+---------------
+
+USER_CONFIRMATION
+-----------------
+
+USER_SESSIONS
+-------------

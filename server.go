@@ -143,7 +143,7 @@ func main() {
 		// }
 	})
 
-	r.Run(":4800")
+	r.Run(":4900")
 }
 
 func addChallenge(c *gin.Context) error {
@@ -229,7 +229,7 @@ func dbConfig() map[string]string {
 
 func defaultTemplateData() *templateData {
 	td := &templateData{}
-	td.Theme, td.ThemeAlt, td.ThemeHighlighter, td.ThemeHighlighterAlt = "0,84,164", "252,225,2", "255,255,255", "48,48,48"
+	td.Theme, td.ThemeAlt, td.ThemeHighlighter, td.ThemeHighlighterAlt = "80,80,80", "252,225,2", "255,255,255", "48,48,48"
 	return td
 }
 

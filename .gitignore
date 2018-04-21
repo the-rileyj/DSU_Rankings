@@ -4,3 +4,4 @@
 *.exe*
 config/
 .vscode/
+tests/

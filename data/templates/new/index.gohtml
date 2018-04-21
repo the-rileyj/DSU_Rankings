@@ -4,6 +4,7 @@
         {{template "nav" .}}
         <div class="container-fluid content-container theme-bg-alt pa-2 mx-1 theme-border-alt">
             <h1 class="theme-text-highlighter" >GAMES</h1>
+            <p>{{.}}</p>
             <ul class="list-group">
                 {{range .Data}}
                     <a href="/game/{{.Game}}">
