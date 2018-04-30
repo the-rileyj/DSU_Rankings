@@ -1,15 +1,18 @@
-{{define "navIn"}}
+{{define "gameNavIn"}}
     <nav class="navbar navbar-toggleable-md elevation-8 mb-4">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/">DSU Rankings</a>
+        <a class="navbar-brand" href="/game/{{.Game}}/">DSU {{.GameTitle}}</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/profile">
+                <a class="nav-item nav-link" href="/game/{{.Game}}/profile">
                     Profile
                 </a>
-                <a class="nav-item nav-link" href="/logout">
+                <a class="nav-item nav-link" href="/game/{{.Game}}/confirm">
+                    Confirm
+                </a>
+                <a class="nav-item nav-link" href="/game/{{.Game}}/logout">
                     Logout
                 </a>
             </div>
