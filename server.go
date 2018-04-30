@@ -225,11 +225,20 @@ func errorBasicLogger(location, sublocation string, err error) {
 
 func errorDrain() {
 	var lErr locationalError
+
+	f, err := os.OpenFile("sdpass.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer f.Close()
+
 	for {
 		select {
 		case lErr = <-errorChannel:
-			fmt.Println(lErr.Location, lErr.Sublocation, lErr.Error.Error())
-			//Handle Error Logging Here
+			fmt.Println(lErr.Location, lErr.Sublocation, lErr)
+			f.WriteString(fmt.Sprintf("%s, %s, %s\n", lErr.Location, lErr.Sublocation, lErr))
 		}
 	}
 }
