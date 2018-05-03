@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
 	mailgun "gopkg.in/mailgun/mailgun-go.v1"
@@ -80,13 +81,18 @@ var db *sql.DB
 var tpl *template.Template
 
 func init() {
+	tpl = template.Must(template.New("").ParseGlob("data/templates/new/*.gohtml"))
+
+	errorChannel = make(chan locationalError)
+	go errorDrain()
+
 	config := dbConfig()
-	var err error
+
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		config[dbhost], config[dbport], config[dbuser], config[dbpass], config[dbname],
 	)
 
-	db, err = sql.Open("postgres", psqlInfo)
+	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		panic(err)
 	}
@@ -100,12 +106,7 @@ func init() {
 }
 
 func main() {
-	errorChannel = make(chan locationalError)
-
-	go errorDrain()
-
 	r := gin.Default()
-	tpl = template.Must(template.New("").ParseGlob("data/templates/new/*.gohtml"))
 
 	//private, _ := os.LookupEnv("PRIVATE")
 	//public, _ := os.LookupEnv("PUBLIC")
@@ -124,6 +125,28 @@ func main() {
 	})
 
 	r.GET("/", func(c *gin.Context) {
+		td := defaultTemplateData()
+		td.Authenticated = isActiveSession(c.Request)
+
+		type tempStruct struct{ Game, GameTitle string }
+		td.Data = []tempStruct{}
+		rows, err := db.Query(`SELECT name, title `)
+		td.Data = append(td.Data.([]tempStruct), tempStruct{Game: "Test", GameTitle: "test test"})
+		go errorLogger(c.Request.URL.String(), "1", tpl.ExecuteTemplate(c.Writer, "index.gohtml", *td))
+
+		// players := users{}
+		// err := queryPlayersByScore(&players)
+		// go errorLogger(g.Request.URL.String(), "1", err)
+		// if isActiveSession(g.Request) {
+		// 	err = tpl.ExecuteTemplate(g.Writer, "indexIn.gohtml", players)
+		// 	go errorLogger(g.Request.URL.String(), "2", err)
+		// } else {
+		// 	err = tpl.ExecuteTemplate(g.Writer, "indexOut.gohtml", players)
+		// 	go errorLogger(g.Request.URL.String(), "3", err)
+		// }
+	})
+
+	r.GET("/game/:game/", func(c *gin.Context) {
 		td := defaultTemplateData()
 		type tempStruct struct{ Game, GameTitle string }
 		td.Data = []tempStruct{{"Test2", "T2est"}, {"Tes", "T3est"}, {"Tes", "T333est"}, {"Tes", "T322est"}, {"Tes", "T44223est"}}
@@ -251,8 +274,9 @@ func errorDrain() {
 	for {
 		select {
 		case lErr = <-errorChannel:
-			fmt.Println(lErr.Location, lErr.Sublocation, lErr)
-			f.WriteString(fmt.Sprintf("%s, %s, %s\n", lErr.Location, lErr.Sublocation, lErr))
+			errString := fmt.Sprintf("%s - %s, %s: %s\n", time.Now().Format("2006-01-02 15:04:05"), lErr.Location, lErr.Sublocation, lErr.Error)
+			fmt.Println(errString)
+			f.WriteString(errString)
 		}
 	}
 }
